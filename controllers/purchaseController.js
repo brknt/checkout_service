@@ -3,6 +3,8 @@ const Enum = require('../config/Enum');
 const Response = require('../lib/Response');
 const db = require('../config/db_config');
 const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
+const SELLORDERS = require('../models/SELL_ORDERS');
+
 
 const purchase = async (req, res) => {
     try {
@@ -32,6 +34,16 @@ const purchase = async (req, res) => {
             source: 'tok_visa',
             description: `Charge for ${email[0].email}`,
         });
+        
+        if (charge.status == 'succeeded') {
+
+            const sell_orders = await SELLORDERS.create({
+                userId: req.session.userID,
+                email: data.email,
+                products: data.products,
+                totalPrice:totalPrice
+            });
+        }
 
 
         return res.json(Response.successResponse({ success: true, result: "Payment successful" }, 200));

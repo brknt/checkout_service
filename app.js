@@ -24,7 +24,7 @@ const port = process.env.PORT || 3000;
 
 
 // MONGODB
-// db.connMongoDb();
+ db.connMongoDb();
 
 
 
