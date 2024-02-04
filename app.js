@@ -6,8 +6,14 @@ const app = express();
 
 
 
+const userRoute = require('./routes/userRoute');
+
+
 // MONGODB
 // db.connMongoDb();
+
+
+
 
 
 
@@ -17,6 +23,7 @@ app.use(express.json());
 
 
 
+app.use("/users", userRoute.routes);
 
 const port = process.env.PORT || 3000;
 
