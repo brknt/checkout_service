@@ -6,11 +6,11 @@ const Response = require('../lib/Response');
 const getAllProducts = async (req, res, next) => {
     try {
         const [results] = await db.mysqlPool.query(`SELECT * FROM products`);
-        res.json(Response.successResponse({ success: true, result: results }, 200));
+        return res.json(Response.successResponse({ success: true, result: results }, 200));
 
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
-        res.status(errorResponse.code).json(errorResponse);
+        return res.status(errorResponse.code).json(errorResponse);
 
     }
 }
@@ -25,7 +25,7 @@ const getProductById = async (req, res, next) => {
 
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
-        res.status(errorResponse.code).json(errorResponse);
+        return res.status(errorResponse.code).json(errorResponse);
 
     }
 }

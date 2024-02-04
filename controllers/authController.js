@@ -7,52 +7,55 @@ const Enum = require('../config/Enum');
 const createUser = async (req, res) => {
     try {
         const data = req.body;
+        const [userData] = await db.mysqlPool.query(`SELECT * FROM users WHERE email='${data.email}'`);
 
-        if (data.name != '' && data.password != '') {
-            const password_hash = await bcrypt.hash(data.password, 10);
-            var [results] = await db.mysqlPool.query(`INSERT INTO checkout_serviceDB.users
+
+        if (userData.length < 1) {
+            if (data.email != '' && data.password != '') {
+                const password_hash = await bcrypt.hash(data.password, 10);
+                var [results] = await db.mysqlPool.query(`INSERT INTO users
             (
             name,
             email,
             password)
             VALUES
             ("${data.name}","${data.email}","${password_hash}");`
-            );
+                );
+            }
+        } else {
+            return res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ results: "Such a user already exists!" });
         }
-        res.json(Response.successResponse({ success: true, result: results }, 201));
+        return res.json(Response.successResponse({ success: true, result: results }, 201));
 
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
-        res.status(errorResponse.code).json(errorResponse);
+        return res.status(errorResponse.code).json(errorResponse);
     }
 }
 
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email);
 
         const [user] = await db.mysqlPool.query(`
         SELECT * FROM users WHERE email='${email}';`);
         console.log(user);
 
-        if (user) {
-
-
+        if (user.length>0) {
             bcrypt.compare(password, user[0].password, (err, same) => {
                 if (same) {
 
                     req.session.userID = user[0].id;
-                    res.json(Response.successResponse({ success: true }, 200));
+                    return res.json(Response.successResponse({ success: true }, 200));
 
                 } else {
-                    res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "Your password is not correct!" });
+                    return res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "Your password is not correct!" });
 
                 }
 
             });
         } else {
-            res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "User is not exists!" });
+            return res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "User is not exists!" });
 
 
         }
@@ -60,7 +63,7 @@ const loginUser = async (req, res) => {
 
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
-        res.status(errorResponse.code).json(errorResponse);
+        return res.status(errorResponse.code).json(errorResponse);
 
     }
 
@@ -70,7 +73,7 @@ const logoutUser = (req, res) => {
     console.log('logout');
 
     req.session.destroy(() => {
-        res.json(Response.successResponse({ success: true }, 200));
+        return res.json(Response.successResponse({ success: true }, 200));
     });
 }
 
