@@ -4,7 +4,7 @@ const Response = require('../lib/Response');
 const Enum = require('../config/Enum');
 
 
-const createUser = async(req,res)=>{
+const createUser = async (req, res) => {
     try {
         const data = req.body;
 
@@ -20,7 +20,7 @@ const createUser = async(req,res)=>{
             );
         }
         res.json(Response.successResponse({ success: true, result: results }, 201));
-        
+
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
         res.status(errorResponse.code).json(errorResponse);
@@ -46,14 +46,14 @@ const loginUser = async (req, res) => {
                     res.json(Response.successResponse({ success: true }, 200));
 
                 } else {
-                    res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({success:false,result:"Your password is not correct!"});
-                    
+                    res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "Your password is not correct!" });
+
                 }
 
             });
         } else {
-            res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({success:false,result:"User is not exists!"});
-                    
+            res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({ success: false, result: "User is not exists!" });
+
 
         }
 

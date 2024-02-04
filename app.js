@@ -11,6 +11,7 @@ const session = require('express-session');
 
 const userRoute = require('./routes/userRoute');
 const productRoute = require('./routes/productRoute');
+const purchaseRoute = require('./routes/purchaseRoute');
 
 
 
@@ -43,7 +44,13 @@ app.use(session({
 
 app.use("/users", userRoute.routes);
 app.use("/product", productRoute.routes);
+app.use("/purchase", purchaseRoute.routes);
 
+
+app.use((err, req, res, next) => {
+    console.log(err)
+    res.status(err.status || 500).send('Something went wrong!')
+});
 
 
 
