@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const db = require('../config/db_config');
 const Response = require('../lib/Response');
+const Enum = require('../config/Enum');
 
 
 const createUser = async(req,res)=>{
@@ -26,8 +27,56 @@ const createUser = async(req,res)=>{
     }
 }
 
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        console.log(email);
+
+        const [user] = await db.mysqlPool.query(`
+        SELECT * FROM users WHERE email='${email}';`);
+        console.log(user);
+
+        if (user) {
+
+
+            bcrypt.compare(password, user[0].password, (err, same) => {
+                if (same) {
+
+                    req.session.userID = user[0].id;
+                    res.json(Response.successResponse({ success: true }, 200));
+
+                } else {
+                    res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({success:false,result:"Your password is not correct!"});
+                    
+                }
+
+            });
+        } else {
+            res.status(Enum.HTTP_CODES.UNAUTHORIZED).json({success:false,result:"User is not exists!"});
+                    
+
+        }
+
+
+    } catch (error) {
+        let errorResponse = Response.errorResponse(error);
+        res.status(errorResponse.code).json(errorResponse);
+
+    }
+
+}
+
+const logoutUser = (req, res) => {
+    console.log('logout');
+
+    req.session.destroy(() => {
+        res.json(Response.successResponse({ success: true }, 200));
+    });
+}
 
 
 module.exports = {
-    createUser
+    createUser,
+    loginUser,
+    logoutUser
 }

@@ -1,12 +1,24 @@
 const express = require('express');
 require('dotenv').config();
 const db = require('./config/db_config');
+const session = require('express-session');
 
-const app = express();
+
+
+
 
 
 
 const userRoute = require('./routes/userRoute');
+
+
+
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+
+
 
 
 // MONGODB
@@ -20,12 +32,19 @@ const userRoute = require('./routes/userRoute');
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+    secret: 'getMobil_123',
+    resave: false,
+    saveUninitialized: true
+}));
 
 
 
 app.use("/users", userRoute.routes);
 
-const port = process.env.PORT || 3000;
+
+
+
 
 
 //start the express server
