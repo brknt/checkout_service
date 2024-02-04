@@ -10,6 +10,7 @@ const session = require('express-session');
 
 
 const userRoute = require('./routes/userRoute');
+const productRoute = require('./routes/productRoute');
 
 
 
@@ -41,6 +42,7 @@ app.use(session({
 
 
 app.use("/users", userRoute.routes);
+app.use("/product", productRoute.routes);
 
 
 
