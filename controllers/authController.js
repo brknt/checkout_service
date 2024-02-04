@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
 
         const [user] = await db.mysqlPool.query(`
         SELECT * FROM users WHERE email='${email}';`);
-        console.log(user);
+       
 
         if (user.length>0) {
             bcrypt.compare(password, user[0].password, (err, same) => {

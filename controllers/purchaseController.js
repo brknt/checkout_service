@@ -2,6 +2,7 @@
 const Enum = require('../config/Enum');
 const Response = require('../lib/Response');
 const db = require('../config/db_config');
+const stripe = require('stripe')(`${process.env.STRIPE_SECRET_KEY}`);
 
 const purchase = async (req, res) => {
     try {
@@ -24,7 +25,16 @@ const purchase = async (req, res) => {
         console.log("totalPrice: ", totalPrice);
 
 
-        
+
+        const charge = await stripe.charges.create({
+            amount: totalPrice * 100,
+            currency: 'usd',
+            source: 'tok_visa',
+            description: `Charge for ${email[0].email}`,
+        });
+
+
+        return res.json(Response.successResponse({ success: true, result: "Payment successful" }, 200));
 
     } catch (error) {
         let errorResponse = Response.errorResponse(error);
