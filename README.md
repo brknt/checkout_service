@@ -10,7 +10,7 @@ The "stripe" package was used to fake the sales and payment process.After the or
 Product and user information was kept in the MySQL database. The order and payment transaction was kept in the MongoDB database.
 
 ## Technogolies
-- Node JS, Express, MySQL, MongoDB
+- Node JS, Express, MySQL, MongoDB , Postman, Vscode, MySQL Workbench, MongoDb Compass
 ## Installing
 - type in terminal: npm i && npm start
 
