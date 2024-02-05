@@ -1,0 +1,7 @@
+id,Created date (UTC),Amount,Amount Refunded,Currency,Captured,Converted Amount,Converted Amount Refunded,Converted Currency,Description,Fee,Statement Descriptor,Status,Seller Message,Taxes On Fee,Card ID,Customer ID,Customer Description,Customer Email,Invoice ID,Transfer
+ch_3Og8NVEIzUeqNk3Z19OdxJ8e,2024-02-04 16:17:09,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og8NVEIzUeqNk3ZzsZUKfde,,,,,
+ch_3Og8MqEIzUeqNk3Z0PEQ4EPC,2024-02-04 16:16:28,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og8MqEIzUeqNk3ZO7Swcyy1,,,,,
+ch_3Og8MKEIzUeqNk3Z1ogfulBK,2024-02-04 16:15:56,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og8MKEIzUeqNk3ZivDAWdm6,,,,,
+ch_3Og8LCEIzUeqNk3Z1quEGgTI,2024-02-04 16:14:46,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og8LCEIzUeqNk3ZzInN6fzV,,,,,
+ch_3Og7RSEIzUeqNk3Z1wGChyY5,2024-02-04 15:17:10,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og7RSEIzUeqNk3Z651w9jWl,,,,,
+ch_3Og7MVEIzUeqNk3Z078KeVQc,2024-02-04 15:12:03,40.00,0.00,usd,true,40.00,0.00,usd,Charge for deneme4@gmail.com,1.46,Stripe,Paid,Payment complete.,0.00,card_1Og7MVEIzUeqNk3Zs3DRHhfX,,,,,
